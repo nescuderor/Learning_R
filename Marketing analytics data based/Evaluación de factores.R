@@ -65,14 +65,20 @@ PV_U1 <- mean(new_dt$P.Valor_U1)
 PV_U2 <- mean(new_dt$P.Valor_U2)
 PV_U3 <- mean(new_dt$P.Valor_U3)
 
-#Modelamiento y graficación
+##Modelamiento y graficación
 library(reshape)
 final_dt <- data.frame(c(AC_U1, AC_U2, AC_U3), c(PV_U1, PV_U2, PV_U3), 
                        row.names = c("Universidad 1", "Universidad 2", "Universidad 3"))
 final_dt <- rename(final_dt, c(c.AC_U1..AC_U2..AC_U3.="Alta_Calidad", 
                                c.PV_U1..PV_U2..PV_U3.="P.Valor"))
-
 final_dt
+#Cálculo del GAP
+GAP <- final_dt$Alta_Calidad - final_dt$P.Valor
+GAP_Percent <- GAP * 10
+GAP_table <- data.frame(GAP, GAP_Percent, row.names = c("Universidad 1", "Universidad 2", "Universidad 3"))
+GAP_table
+
+GAP
 
 #Graficación
 library(ggplot2)
@@ -88,6 +94,7 @@ Dispersion <- ggplot(final_dt, aes(x = P.Valor, y = Alta_Calidad)) +
                    xend = 10,
                    y = 0,
                    yend = 10)) +
-  geom_text(aes(label=row.names(final_dt)),cex = 2, nudge_x = -0.4, nudge_y = 0.1 )
+  geom_text(aes(label=row.names(final_dt)),
+            cex = 2, nudge_x = -0.4, nudge_y = 0.1 )
   
 Dispersion

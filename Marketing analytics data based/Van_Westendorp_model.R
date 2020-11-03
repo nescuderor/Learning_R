@@ -85,6 +85,8 @@ Pricing_Model <- New_pricing.df %$%
     Expensive = outer(Rangos, Expensive, ">=") %>% rowMeans(),
     Too_expensive = outer(Rangos, Too_expensive, ">=") %>% rowMeans(),
   )
+write.table(Pricing_Model, file = "Van_Westendorp.csv", row.names = FALSE, col.names = TRUE,
+            dec = ",")
 
 #Desarrollo final del modelo
 Van_Westendorp_model <- Pricing_Model %>%
