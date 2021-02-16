@@ -21,3 +21,6 @@ y
 
 table(y)
 unclass(y)
+
+###Way to obtain the width of a vector
+seq_along(c(1,2,3,4,5,7,8))
